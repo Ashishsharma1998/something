@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
+
+  const[aadhar,setAadhar] = useState("");
+  const [prn,setPrn] = useState("");
+  const [jfId , setJfid] = useState("");
+
+  // console.log("from react ", prn , jfId);
+   
+  const handleDataFromParent = (e)=>{
+    if(e.data)console.log("from here ",e?.data);
+    // if(e.data){
+    //   setPrn(e.data?.PRN);
+    //   setJfid(e.data?.JFId);
+    // }
+
+  }
+
+
+  useEffect(()=>{
+   window.addEventListener("message",handleDataFromParent);
+   return ()=>{
+    window.removeEventListener("message",handleDataFromParent);
+   }
+  });
+ 
+
+
+  const handleSubmit=()=>{
+    try {
+
+      // console.log(localStorage.getItem("data"));
+      
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <input placeholder="Aadhar number" onChange={(e)=>setAadhar(e.target.value)} value={aadhar}></input> 
+        <button type="button" onClick={handleSubmit}>submit</button>
+      </div>
     </div>
   );
 }
